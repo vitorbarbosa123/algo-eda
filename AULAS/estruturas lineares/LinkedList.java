@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class LinkedList {
     
     private Node head;
@@ -115,5 +117,78 @@ public class LinkedList {
     public Aluno getLast() {
         if(this.isEmpty()) return null;
         return this.tail.aluno;
+    }
+
+    // métodos de remoção
+
+    public Aluno removeFirst() {
+        if(this.isEmpty()) throw new NoSuchElementException();
+
+        Aluno aluno = this.head.aluno;
+
+        if(this.head.next == null) {
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.head = this.head.next;
+            this.head.prev = null;
+        }
+        size -= 1;
+        return aluno;
+    }
+
+    public Aluno removeLast() {
+        if(this.isEmpty()) throw new NoSuchElementException();
+
+        Aluno aluno = this.tail.aluno;
+
+        if(this.head.next == null) {
+            this.head = null;
+            this.head = null;
+        } else {
+            this.tail = this.tail.prev;
+            this.tail.next = null;
+        }
+        size -= 1;
+        return aluno;
+    }
+
+    public Aluno remove(int index) {
+        if(index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (index == 0 ) return removeFirst();
+        if (index == size - 1) return removeLast();
+
+        Node aux = this.head;
+        for(int i = 0; i < index; i++) {
+            aux = aux.next;
+        }
+
+        aux.prev.next = aux.next;
+        aux.next.prev = aux.prev;
+        size -= 1;
+
+        return aux.aluno;
+    }
+
+    public boolean remove(Aluno aluno) {
+        Node aux = this.head;
+
+        for(int i = 0; i < this.size; i++) {
+            if(aux.aluno.equals(aluno)) {
+                if(i == 0) removeFirst();
+                else if (i == size - 1) removeLast();
+                else {
+                    aux.prev.next = aux.next;
+                    aux.next.prev = aux.prev;
+                    size -= 1;
+                }
+                return true;
+            }
+            aux = aux.next;
+        }
+        return false;
     }
 }
