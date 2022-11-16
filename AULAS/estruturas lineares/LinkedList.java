@@ -14,6 +14,8 @@ public class LinkedList {
         return this.head == null;
     }
 
+    // Metodos da adição de elemento
+
     public void addLast(Aluno aluno) {
         Node newNode = new Node(aluno);
 
@@ -69,5 +71,49 @@ public class LinkedList {
 
             size += 1;
         }
+    }
+
+    // metodos de busca de elemento
+
+    public Aluno get(int index) {
+        if(index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        Node aux = this.head;
+
+        for(int i = 0; i < index; i++) {
+            aux = aux.next;
+        }
+
+        return aux.aluno;
+    }
+
+    public int indexOf(Aluno aluno) {
+        Node aux = this.head;
+        int index = 0;
+        while(aux != null) {
+            if(aux.aluno.getMatricula().equals(aluno.getMatricula())) {
+                return index;
+            }
+            aux = aux.next;
+            index += 1;
+        }
+
+        return -1;
+    }
+
+    public boolean contains(Aluno aluno) {
+        return indexOf(aluno) != -1;
+    }
+
+    public Aluno getFirst() {
+        if(this.isEmpty()) return null;
+        return this.head.aluno;
+    }
+
+    public Aluno getLast() {
+        if(this.isEmpty()) return null;
+        return this.tail.aluno;
     }
 }
