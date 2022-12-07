@@ -100,4 +100,24 @@ public class BST {
     if(element < node.value) return recursiveSearch(node.left, element);
     else return recursiveSearch(node.right, element);
   }
+
+  public Node min() {
+    if(isEmpty()) return null;
+    return min(this.root);
+  }
+
+  private Node min(Node node) {
+    if(node.left == null) return node;
+    else return min(node.left);
+  }
+  
+  public Node max() {
+    
+    Node node = this.root;
+    
+    while(node.right != null) {
+      node = node.right;
+    }
+    return node;
+  }
 }
