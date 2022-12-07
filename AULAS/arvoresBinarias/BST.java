@@ -1,5 +1,8 @@
 package arvoresBinarias;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 public class BST {
   
   private Node root;
@@ -250,6 +253,28 @@ public class BST {
       posOrder(node.left);
       posOrder(node.right);
       System.out.println(node.value);
+    }
+  }
+
+  public void printBFS() {
+
+    Deque<Node> queue = new LinkedList<Node>();
+
+    if(!isEmpty()) {
+      queue.addLast(this.root);
+
+      while(!queue.isEmpty()) {
+        Node current = queue.removeFirst();
+
+        System.out.println(current);
+
+        if(current.left != null) {
+          queue.addLast(current.left);
+        }
+        if(current.right != null) {
+          queue.addLast(current.right);
+        }
+      }
     }
   }
 
