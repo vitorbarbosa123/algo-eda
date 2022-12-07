@@ -8,6 +8,9 @@ public class BST {
     return this.root == null;
   }
 
+  // o novo elemento é adicionado como folha, devido a isso, é necessário que em uma nova
+  // adição, seja percorrido toda a árvore para adicionar o elemento.
+  // para ambos os tipos de adição: O(h), sendo h o maior caminho entre a raiz a todas as folhas
   public void add(int element) {
 
     if(isEmpty()) {
@@ -39,7 +42,7 @@ public class BST {
     }
   }
 
-  // para recursivo: pior caso O(h)
+ 
 
   public void recursiveAdd(int element) {
     if(isEmpty()) {
@@ -68,5 +71,33 @@ public class BST {
       }
       recursiveAdd(node.right, element);
     }
+  }
+
+  // o algoritmo depende da altura da árvore, em seu pior caso ele percorre um ramo da árvore
+  //até o seu final. 
+  // para ambos os casos de busca: O(h), sendo h a altura do ramo
+  public Node search(int element) {
+    
+    Node aux = this.root;
+
+    while(aux != null) {
+      if(aux.value == element) return aux;
+      if(element < aux.value) aux = aux.left;
+      if(element > aux.value) aux = aux.right;
+    }
+
+    return null;
+  }
+
+  public Node recursiveSearch(int element) {
+    return recursiveSearch(this.root, element);
+  }
+
+  private Node recursiveSearch(Node node, int element) {
+
+    if(node == null) return null;
+    if(element == node.value) return node;
+    if(element < node.value) return recursiveSearch(node.left, element);
+    else return recursiveSearch(node.right, element);
   }
 }
