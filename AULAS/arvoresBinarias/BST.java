@@ -159,4 +159,60 @@ public class BST {
     if(node == null) return -1;
     else return 1 + Math.max(height(node.left), height(node.right));
   }
+
+  // metodo 1: remove uma folha ou raiz; a folha a ser removida é repassada; 
+  public void removeLeaf(Node node) {
+
+    if(node.value == this.root.value) {
+      this.root = null;
+
+    } else {
+      if(node.value < node.parent.value) {
+        node.parent.left = null;
+
+      } else {
+        node.parent.right = null;
+      }
+    }
+  }
+
+  // metodo 2: remover um nó que possuí um filho
+  public void removeNodeSingleChild(Node node) {
+
+      // verificar se possuí um único filho na esquerda
+      if(node.value == this.root.value) {
+        this.root = node.left;
+        this.root.parent = null;
+  
+      } else {
+        node.left.parent = node.parent;
+        if(node.value < node.parent.value) {
+          node.parent.left = node.left;
+  
+        } else {
+          node.parent.right = node.left;
+        }
+      }
+      
+      // verificar se possuí um único filho na direita
+      if(node.value == this.root.value) {
+        this.root = node.right;
+        this.root.parent = null;
+      } else {
+        node.right.parent = node.parent;
+        if(node.value < node.parent.value) {
+          node.parent.left = node.right;
+  
+        } else {
+          node.parent.right = node.right;
+        }
+      }
+  }
+
+  public void removeNodeWithTwoChilds(Node node) {
+
+    Node sucessor = sucessor(node);
+    node.value = sucessor.value;
+    removeLeaf(sucessor);
+  }
 }
