@@ -111,13 +111,43 @@ public class BST {
     else return min(node.left);
   }
   
-  public Node max() {
-    
-    Node node = this.root;
+  public Node max(Node node) {
     
     while(node.right != null) {
       node = node.right;
     }
     return node;
+  }
+
+  public Node sucessor(Node node) {
+    if(node == null) return null;
+
+    if(node.right != null) {
+      return min(node.right);
+    } else {
+      Node aux = node.parent;
+
+      while(aux != null && aux.value < node.value) {
+        aux = aux.parent;
+      }
+
+      return aux;
+    }
+  }
+
+  public Node predecessor(Node node) {
+    if(node == null) return null;
+
+    if(node.left != null) {
+      return max(node.left);
+    } else {
+      Node aux = node.parent;
+
+      while(aux != null && aux.value > node.value) {
+        aux = aux.parent;
+      }
+
+      return aux;
+    }
   }
 }
