@@ -215,4 +215,42 @@ public class BST {
     node.value = sucessor.value;
     removeLeaf(sucessor);
   }
+
+  public void preOrder() {
+    preOrder(this.root);
+  }
+
+  private void preOrder(Node node) {
+    if(node != null) {
+      System.out.println(node.value);
+      preOrder(node.left);
+      preOrder(node.right);
+    }
+  }
+  
+  public void inOrder() {
+    inOrder(this.root);
+  }
+
+  private void inOrder(Node node) {
+    
+    if(node != null) {
+      inOrder(node.left);
+      System.out.println(node.value);
+      inOrder(node.right);
+    }
+  }
+
+  public void posOrder() {
+    posOrder(this.root);
+  }
+
+  private void posOrder(Node node) {
+    if(node != null) {
+      posOrder(node.left);
+      posOrder(node.right);
+      System.out.println(node.value);
+    }
+  }
+
 }
